@@ -65,7 +65,7 @@ export function AuthProvider(props) {
 				setError({ [pathname]: error });
 				return;
 			}
-			router.push(`/verify?email=${email}`);
+			router.push(`/auth/verifyEmail?email=${email}`);
 		} else {
 			setError({ [pathname]: "Email can not be empty" });
 		}
