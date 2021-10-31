@@ -44,6 +44,7 @@ export function AuthProvider(props) {
 
 	const signInUserWithEmailAndPassword = async (email, password) => {
 		if (email && password) {
+			
 			const { error, user } = await AuthService.signInUserWithEmailAndPassword(
 				email,
 				password

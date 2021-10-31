@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import Auth from '../../layouts/Auth'
 import { withPublic } from "backend/hook/routeProtector";
 
@@ -107,17 +108,17 @@ function Login({auth}) {
             </div>
             <div className="flex flex-wrap mt-6 relative">
               <div className="w-1/2">
+                <Link href="/auth/forgotPassword">
                 <a
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
                   className="text-blueGray-200"
                 >
                   <small>Forgot password?</small>
                 </a>
+                </Link>
               </div>
               <div className="w-1/2 text-right">
                 <Link href="/auth/register">
-                  <a href="#pablo" className="text-blueGray-200">
+                  <a className="text-blueGray-200">
                     <small>Create new account</small>
                   </a>
                 </Link>

@@ -1,8 +1,11 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 
+
 export const AuthService = {
+	
     loginWithGoogle: async () => {
+		firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
         const provider = new firebase.auth.GoogleAuthProvider();
         try{
             const result = await firebase.auth().signInWithPopup(provider)
@@ -37,6 +40,7 @@ export const AuthService = {
 		}
 	},
 	signInUserWithEmailAndPassword: async (email, password) => {
+		firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
 		try {
 			const userCred = await firebase
 				.auth()

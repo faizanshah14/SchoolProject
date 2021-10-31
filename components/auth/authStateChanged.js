@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import 'firebase/auth'
 import { useState, useEffect } from "react";
 import useAuth from '../../backend/hook/auth'
+import PageChange from "components/PageChange/PageChange";
 
 export default function AuthStateChanged({children}) {
   
@@ -16,7 +17,7 @@ export default function AuthStateChanged({children}) {
   }, []);
 
   if(loading){
-    return <div>Loading...</div>;
+    return <PageChange />;
   }
   return children
 } 
