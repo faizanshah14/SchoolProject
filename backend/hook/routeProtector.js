@@ -7,7 +7,7 @@ export function withPublic(Component){
         const auth = useAuth()
         const router = useRouter()
         if(auth.user && auth.user.emailVerified){
-            router.push("/landing")
+            router.push("/company")
             return <div>You are already logged in</div>//loagin
         }
         return <Component auth={auth} {...props} />

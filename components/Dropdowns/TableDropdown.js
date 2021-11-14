@@ -1,8 +1,11 @@
 import React from "react";
 import { createPopper } from "@popperjs/core";
+import router from "next/router";
 
-const NotificationDropdown = () => {
+
+const NotificationDropdown = (props) => {
   // dropdown props
+  const {id,deleteFunction,editUrl,secondButtonTitle,firstButtonTitle} = props;
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
   const popoverDropdownRef = React.createRef();
@@ -15,6 +18,18 @@ const NotificationDropdown = () => {
   const closeDropdownPopover = () => {
     setDropdownPopoverShow(false);
   };
+  async function deleteHandler(e){
+    e.preventDefault();
+    const flag = await deleteFunction(id)
+    if(flag){
+      closeDropdownPopover();
+      window.location.reload();
+    }
+  }
+  function editHandler(e){
+    e.preventDefault();
+    router.push(`${editUrl}${id}`)
+  }
   return (
     <>
       <a
@@ -26,7 +41,7 @@ const NotificationDropdown = () => {
           dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
         }}
       >
-        <i className="fas fa-ellipsis-v"></i>
+        <i className="fas fa-ellipsis-v"> </i>
       </a>
       <div
         ref={popoverDropdownRef}
@@ -35,33 +50,51 @@ const NotificationDropdown = () => {
           "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
         }
       >
-        <a
-          href="#pablo"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-          onClick={(e) => e.preventDefault()}
-        >
-          Action
-        </a>
-        <a
-          href="#pablo"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-          onClick={(e) => e.preventDefault()}
-        >
-          Another action
-        </a>
-        <a
-          href="#pablo"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-          onClick={(e) => e.preventDefault()}
-        >
-          Something else here
-        </a>
+        {firstButtonTitle && 
+                <a
+                href="#pablo"
+                className={
+                  "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                }
+                onClick={editHandler}
+              >
+                {firstButtonTitle}
+              </a>
+        }
+        {!firstButtonTitle && 
+                <a
+                href="#pablo"
+                className={
+                  "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                }
+                onClick={editHandler}
+              >
+                Edit
+              </a>
+        }
+        {secondButtonTitle && 
+                <a
+                href="#pablo"
+                className={
+                  "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                }
+                onClick={deleteHandler}
+              >
+                {secondButtonTitle}
+              </a>
+        }
+        {!secondButtonTitle && 
+                  <a
+                  href="#pablo"
+                  className={
+                    "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  }
+                  onClick={deleteHandler}
+                >
+                  Delete
+                </a>
+        }
+
       </div>
     </>
   );

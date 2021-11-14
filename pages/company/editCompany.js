@@ -3,30 +3,22 @@ import {withProtected} from "backend/hook/routeProtector";
 // components
 import Admin from '../../layouts/Admin'
 
-import {addCompany , getCompanies} from "pages/api/compnies";
-import router from "next/router";
+import {updateCompany , getCompanyById} from "pages/api/compnies";
+import { useRouter } from "next/router";
 
-function AddCompany(props) {
-
-  const company = {
-    companyName: '',
-    companyEmail: '',
-    companyPhone: '',
-    representativeName: ''
-  }
-  const company1 = []
-
-  const [companyName, setCompanyName] = React.useState('');
-  const [companyEmail, setCompanyEmail] = React.useState('');
-  const [representativeName, setRepresentativeName] = React.useState('');
-  const [companyPhone, setCompanyPhone] = React.useState('');
+function EditCompany({company}) {
+  const router = useRouter();
+  const [companyName, setCompanyName] = React.useState(company.companyName);
+  const [companyEmail, setCompanyEmail] = React.useState(company.companyEmail);
+  const [representativeName, setRepresentativeName] = React.useState(company.representativeName);
+  const [companyPhone, setCompanyPhone] = React.useState(company.companyPhone);
   async function submitHandler(e) {
     e.preventDefault();
     company.companyName = companyName;
     company.companyEmail = companyEmail;
     company.companyPhone = companyPhone;
     company.representativeName = representativeName;
-    const res= await addCompany(company);
+    const res= await updateCompany(company);
     if(res){
       router.push('/company')
     }
@@ -67,6 +59,7 @@ function AddCompany(props) {
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     onChange={(e) => setCompanyName(e.target.value)}
+                    value={companyName}
                   />
                 </div>
               </div>
@@ -82,6 +75,7 @@ function AddCompany(props) {
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     onChange={(e) => setCompanyEmail(e.target.value)}
+                    value={companyEmail}
                   />
                 </div>
               </div>
@@ -97,6 +91,7 @@ function AddCompany(props) {
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     onChange={(e) => setRepresentativeName(e.target.value)}
+                    value={representativeName}
                   />
                 </div>
               </div>
@@ -112,6 +107,7 @@ function AddCompany(props) {
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     onChange={(e) => setCompanyPhone(e.target.value)}
+                    value={companyPhone}
                   />
                 </div>
               </div>
@@ -123,4 +119,14 @@ function AddCompany(props) {
     </>
   );
 }
-export default withProtected(AddCompany)
+export default withProtected(EditCompany)
+
+export async function getServerSideProps(context) {
+  const { id } = context.query;
+  const data = await getCompanyById(id)
+  return {
+      props: {
+          company:data
+      }, // will be passed to the page component as props
+  }
+}

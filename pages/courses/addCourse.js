@@ -3,32 +3,27 @@ import {withProtected} from "backend/hook/routeProtector";
 // components
 import Admin from '../../layouts/Admin'
 
-import {addCompany , getCompanies} from "pages/api/compnies";
+import {addCourse} from 'pages/api/courses';
 import router from "next/router";
 
-function AddCompany(props) {
+function AddCourse(props) {
 
-  const company = {
-    companyName: '',
-    companyEmail: '',
-    companyPhone: '',
-    representativeName: ''
-  }
-  const company1 = []
+  const course = {
+    title: '',
+    code: ''
+}
+  const course1 = []
 
-  const [companyName, setCompanyName] = React.useState('');
-  const [companyEmail, setCompanyEmail] = React.useState('');
-  const [representativeName, setRepresentativeName] = React.useState('');
-  const [companyPhone, setCompanyPhone] = React.useState('');
+  const [courseTitle, setCourseTitle] = React.useState('');
+  const [courseCode, setCourseCode] = React.useState('');
+
   async function submitHandler(e) {
     e.preventDefault();
-    company.companyName = companyName;
-    company.companyEmail = companyEmail;
-    company.companyPhone = companyPhone;
-    company.representativeName = representativeName;
-    const res= await addCompany(company);
+    course.courseTitle = courseTitle;
+    course.courseCode = courseCode;
+    const res= await addCourse(course);
     if(res){
-      router.push('/company')
+      router.push('/courses')
     }
   }
 
@@ -50,7 +45,6 @@ function AddCompany(props) {
           </div>
         </div>
         <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-
             <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
              Information
             </h6>
@@ -61,12 +55,12 @@ function AddCompany(props) {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Company Name
+                    Course Title
                   </label>
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    onChange={(e) => setCompanyName(e.target.value)}
+                    onChange={(e) => setCourseTitle(e.target.value)}
                   />
                 </div>
               </div>
@@ -76,42 +70,12 @@ function AddCompany(props) {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Email address
-                  </label>
-                  <input
-                    type="email"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    onChange={(e) => setCompanyEmail(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Representative Name
+                    Course Code
                   </label>
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    onChange={(e) => setRepresentativeName(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Phone Number
-                  </label>
-                  <input
-                    type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    onChange={(e) => setCompanyPhone(e.target.value)}
+                    onChange={(e) => setCourseCode(e.target.value)}
                   />
                 </div>
               </div>
@@ -123,4 +87,4 @@ function AddCompany(props) {
     </>
   );
 }
-export default withProtected(AddCompany)
+export default withProtected(AddCourse)

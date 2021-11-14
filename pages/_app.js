@@ -10,6 +10,19 @@ import AuthStateChanged from "components/auth/authStateChanged";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "styles/tailwind.css";
 
+import { render } from 'react-dom'
+import { transitions, positions, Provider as AlertProvider } from 'react-alert'
+import AlertTemplate from 'react-alert-template-basic'
+
+const options = {
+    // you can also just use 'bottom center'
+    position: positions.TOP_RIGHT,
+    timeout: 5000,
+    offset: '30px',
+    // you can also just use 'scale'
+    transition: transitions.SCALE
+  }
+
 Router.events.on("routeChangeStart", (url) => {
     console.log(`Loading: ${url}`);
     document.body.classList.add("body-page-transition");
@@ -64,6 +77,7 @@ export default class MyApp extends App {
         return (<React.Fragment>
             <AuthProvider>
                 <AuthStateChanged>
+                <AlertProvider template={AlertTemplate} {...options}>
                 <Head>
                     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
                     <title>I Will Change This Later</title>
@@ -72,6 +86,7 @@ export default class MyApp extends App {
                 <Layout>
                     <Component {...pageProps}/>
                 </Layout>
+                </AlertProvider>
                 </AuthStateChanged>
             </AuthProvider>
         </React.Fragment>);

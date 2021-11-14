@@ -1,34 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
+import { MultiSelect } from "react-multi-select-component";
 import {withProtected} from "backend/hook/routeProtector";
 // components
 import Admin from '../../layouts/Admin'
 
-import {addCompany , getCompanies} from "pages/api/compnies";
+import {addTraining} from '../api/trainings';
+import {getCourses} from '../api/courses';
 import router from "next/router";
 
-function AddCompany(props) {
+function AddTraining(props) {
 
-  const company = {
-    companyName: '',
-    companyEmail: '',
-    companyPhone: '',
-    representativeName: ''
-  }
-  const company1 = []
 
-  const [companyName, setCompanyName] = React.useState('');
-  const [companyEmail, setCompanyEmail] = React.useState('');
-  const [representativeName, setRepresentativeName] = React.useState('');
-  const [companyPhone, setCompanyPhone] = React.useState('');
+  const options = props.courses;
+  const training = {
+    title: '',
+    startDate: '',
+    endDate: '',
+    status: ''
+}
+
+
+  const [selected, setSelected] = useState([]);
+  const [title, setTitle] = React.useState('');
+  const [startDate, setStartDate] = React.useState('');
+  const [endDate, setEndDate] = React.useState('')
+  const [status, setStatus] = React.useState('');
+
   async function submitHandler(e) {
     e.preventDefault();
-    company.companyName = companyName;
-    company.companyEmail = companyEmail;
-    company.companyPhone = companyPhone;
-    company.representativeName = representativeName;
-    const res= await addCompany(company);
+    training.title = title;
+    training.startDate = startDate;
+    training.endDate = endDate;
+    training.status = status;
+    training.courses = selected;
+    const res= await addTraining(training);
     if(res){
-      router.push('/company')
+      router.push('/training')
     }
   }
 
@@ -50,7 +57,6 @@ function AddCompany(props) {
           </div>
         </div>
         <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-
             <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
              Information
             </h6>
@@ -61,12 +67,12 @@ function AddCompany(props) {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Company Name
+                    Training Title
                   </label>
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    onChange={(e) => setCompanyName(e.target.value)}
+                    onChange={(e) => setTitle(e.target.value)}
                   />
                 </div>
               </div>
@@ -76,12 +82,12 @@ function AddCompany(props) {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Email address
+                    Status
                   </label>
                   <input
-                    type="email"
+                    type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    onChange={(e) => setCompanyEmail(e.target.value)}
+                    onChange={(e) => setStatus(e.target.value)}
                   />
                 </div>
               </div>
@@ -91,12 +97,12 @@ function AddCompany(props) {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Representative Name
+                    Start Date
                   </label>
                   <input
-                    type="text"
+                    type="date"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    onChange={(e) => setRepresentativeName(e.target.value)}
+                    onChange={(e) => setStartDate(e.target.value)}
                   />
                 </div>
               </div>
@@ -106,13 +112,29 @@ function AddCompany(props) {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Phone Number
+                    End Date
                   </label>
                   <input
-                    type="text"
+                    type="date"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    onChange={(e) => setCompanyPhone(e.target.value)}
+                    onChange={(e) => setEndDate(e.target.value)}
                   />
+                </div>
+              </div>
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
+                <label
+                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Select Course
+                  </label>
+                <MultiSelect
+                  options={options}
+                  value={selected}
+                  onChange={setSelected}
+                  labelledBy="Select Course"
+                />
                 </div>
               </div>
             </div>
@@ -123,4 +145,19 @@ function AddCompany(props) {
     </>
   );
 }
-export default withProtected(AddCompany)
+export default withProtected(AddTraining)
+
+export async function getServerSideProps(context) {
+  const courses = await getCourses();
+  const options = courses.map(course => {
+    return {
+      label: `${course.courseTitle} - ${course.courseCode}`,
+      value: course.id
+    }
+  })
+  return {
+      props: {
+        courses: options
+      }, // will be passed to the page component as props
+  }
+}

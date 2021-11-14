@@ -3,8 +3,9 @@ import React from "react";
 import Link from "next/link";
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import Footer from "components/Footers/Footer.js";
+import {withProtected} from "../backend/hook/routeProtector";
 
-export default function Index() {
+function Index() {
   return (
     <>
       <IndexNavbar fixed />
@@ -664,3 +665,5 @@ export default function Index() {
     </>
   );
 }
+
+export default withProtected(Index)
