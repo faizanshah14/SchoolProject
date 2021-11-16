@@ -6,7 +6,7 @@ import Creatable from "react-select/creatable";
 import SignatureCanvas from "react-signature-canvas";
 
 import { InputField } from "../../components/Fields/InputField";
-import { getTrainings } from "../api/trainings";
+import { getTrainings , updateTraining } from "../api/trainings";
 import fileUpload from "../../backend/api/fileUpload";
 import { useAlert } from "react-alert";
 import { useRouter } from "next/router";
@@ -114,6 +114,10 @@ function Index(props) {
       alert.error("Please check the checkbox");
       return;
     }
+    if(!trainings){
+      alert.error("Please select training");
+      return;
+    }
     htmlToImage
       .toPng(document.getElementById("capture"), { quality: 0.95 })
       .then(function (dataUrl) {
@@ -159,7 +163,11 @@ function Index(props) {
         cv: cv,
         coverLetter: coverLetter,  
         diploma: diploma,
+        applicationStatus: "Pending",
       }
+      const training = props.trainings.data.filter(training => training.id === trainings.value)
+      training.applicants =  training.applicants + 1;
+      await updateTraining(training)
       const res= await addStudentTraining(studentRegistrationData);
       if(res){
         router.push('/')
@@ -695,14 +703,6 @@ function Index(props) {
                   DOCUMENT TO BE PROVIDED
                 </h6>
                 <div className="flex flex-wrap">
-                  <span
-                    className="mt-2 text-base leading-normal text-red-600"
-                    style={{ color: "red" }}
-                  >
-                    ( Warning : the requested documents must correspond to the
-                    level of the training, sometimes no diploma is required the
-                    candidate must therefore not have access to this space)
-                  </span>
                   <div className="w-full lg:w-6/12 px-4">
                     <div className="relative w-full mb-3">
                       {!identityCard && (
@@ -822,14 +822,6 @@ function Index(props) {
                       >
                         OUR GENERAL CONDITIONS OF SALE:
                       </label>
-                      <span
-                        className="mt-2 text-base leading-normal text-red-600"
-                        style={{ color: "red" }}
-                      >
-                        (the trainee must be able to read the text with a lift
-                        because the text is long, it will correspond to the
-                        conditions of each school)
-                      </span>
                       <div className="block">
                         <span className="text-gray-700">SIGNATURE </span>
                         <div className="mt-2">

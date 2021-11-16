@@ -49,7 +49,7 @@ function EditCourse({course}) {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Company Name
+                    Course Title
                   </label>
                   <input
                     type="text"
@@ -65,7 +65,7 @@ function EditCourse({course}) {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Email address
+                    Course Code
                   </label>
                   <input
                     type="text"

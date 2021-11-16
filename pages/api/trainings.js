@@ -1,6 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
-
+import {getStudentTrainingsCountByTrainingId} from './studentRegistration'
 
 /*
 model for Trainings
@@ -10,6 +10,7 @@ model for Trainings
     startDate: '',
     endDate: '',
     status: ''
+    applicants: 0
 }
 */
 
@@ -34,13 +35,14 @@ export async function getTrainings(){
     try{
         const trainings = [];
         const db = await firebase.firestore().collection('trainings').get().then(snapshot => {
-            snapshot.forEach(doc => {
+            snapshot.forEach(doc =>  {
                 trainings.push({
                     id: doc.id,
                     title: doc.data().title,
                     startDate: doc.data().startDate,
                     endDate: doc.data().endDate,
-                    status: doc.data().status
+                    status: doc.data().status,
+                    applicants: doc.data().applicants
                 });
             });
         });
@@ -59,7 +61,8 @@ export async function getTrainingById(trainingId){
             startDate: snapshot.data().startDate,
             endDate: snapshot.data().endDate,
             status: snapshot.data().status,
-            courses: snapshot.data().courses
+            courses: snapshot.data().courses,
+            applicants : snapshot.data().applicants
         };
     } catch(error) {
         console.log(error);

@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 import htmlToPdfmake from 'html-to-pdfmake';
 import pdfmake from 'pdfmake/build/pdfmake'
 
-import {getStudentTrainingById} from "../api/studentRegistration"
+import {getStudentTrainingById , updateStudentTraining} from "../api/studentRegistration"
 
 import { jsPDF } from "jspdf";
 import * as htmlToImage from "html-to-image";
@@ -23,6 +23,7 @@ import { toPng, toJpeg, toBlob, toPixelData, toSvg } from "html-to-image";
 import "image-upload-react/dist/index.css";
 
 function ViewApplication(props) {
+  const router = useRouter();
   const data = props.application.data;
   const alert = useAlert();
   const allTrainings = {}
@@ -83,6 +84,22 @@ function ViewApplication(props) {
       label: "5 - Very Satisfactory",
     },
   ];
+  async function approvalHandler(e){
+    e.preventDefault();
+    data.applicationStatus = 'Approved'
+    const response = await updateStudentTraining(data)
+    if(response){
+      router.push('/training')
+    }
+  }
+  async function rejectionsHandler(e){
+    e.preventDefault();
+    data.applicationStatus = 'Rejected'
+    const response = await updateStudentTraining(data)
+    if(response){
+      router.push('/training')
+    }
+  }
   return (
     <div className="container mx-auto">
       <div className="flex flex-wrap" id="capture">
@@ -93,6 +110,21 @@ function ViewApplication(props) {
                 <h6 className="text-blueGray-700 text-xl font-bold">
                   Registration Form
                 </h6>
+                <button
+                  className="bg-green-500 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                  type="button"
+                  style={{ 'margin-left' : '70em'}}
+                  onClick={approvalHandler}
+                >
+                  Accept
+                </button>
+                <button
+                  className="bg-red-500 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                  type="button"
+                  onClick={rejectionsHandler}
+                >
+                  Reject
+                </button>
               </div>
             </div>
             <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
@@ -581,14 +613,6 @@ function ViewApplication(props) {
                   DOCUMENT TO BE PROVIDED
                 </h6>
                 <div className="flex flex-wrap">
-                  <span
-                    className="mt-2 text-base leading-normal text-red-600"
-                    style={{ color: "red" }}
-                  >
-                    ( Warning : the requested documents must correspond to the
-                    level of the training, sometimes no diploma is required the
-                    candidate must therefore not have access to this space)
-                  </span>
                   <div className="w-full lg:w-6/12 px-4">
                     <div className="relative w-full mb-3">
                         <label
@@ -637,52 +661,6 @@ function ViewApplication(props) {
                   </div>
                   <div className="w-full lg:w-12/12 px-4">
                     <div className="relative w-full mb-3">
-                      <label
-                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                        htmlFor="grid-password"
-                      >
-                        OUR GENERAL CONDITIONS OF SALE:
-                      </label>
-                      <span
-                        className="mt-2 text-base leading-normal text-red-600"
-                        style={{ color: "red" }}
-                      >
-                        (the trainee must be able to read the text with a lift
-                        because the text is long, it will correspond to the
-                        conditions of each school)
-                      </span>
-                      <div className="block">
-                        <span className="text-gray-700">SIGNATURE </span>
-                        <div className="mt-2">
-                          <div>
-                            <label className="inline-flex items-center">
-                              <input
-                                type="checkbox"
-                                className="checkbox"
-                                onChange={(e) => setCb1(e.target.checked)}
-                              />
-                              <span className="ml-2">
-                                {" "}
-                                I agree to enrollment in the SST school
-                              </span>
-                            </label>
-                          </div>
-                          <div>
-                            <label className="inline-flex items-center">
-                              <input
-                                type="checkbox"
-                                className="checkbox"
-                                onChange={(e) => setCb2(e.target.checked)}
-                              />
-                              <span className="ml-2">
-                                {" "}
-                                I have read and accept the general conditions of
-                                sale
-                              </span>
-                            </label>
-                          </div>
-                        </div>
-                      </div>
                       <label
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"

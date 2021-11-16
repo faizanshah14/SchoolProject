@@ -5,7 +5,7 @@ import router from "next/router";
 
 const NotificationDropdown = (props) => {
   // dropdown props
-  const {id,deleteFunction,editUrl,secondButtonTitle,firstButtonTitle} = props;
+  const {id,deleteFunction,editUrl,secondButtonTitle,firstButtonTitle,editTrainingUrl,approvedStudentUrl} = props;
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
   const popoverDropdownRef = React.createRef();
@@ -30,7 +30,14 @@ const NotificationDropdown = (props) => {
     e.preventDefault();
     router.push(`${editUrl}${id}`)
   }
-
+  function editTrainingHandler(e){
+    e.preventDefault();
+    router.push(`${editTrainingUrl}${id}`)
+  }
+  function approvedStudentHandler(e){
+    e.preventDefault();
+    router.push(`${approvedStudentUrl}${id}`)
+  }
   return (
     <>
       <a
@@ -50,7 +57,26 @@ const NotificationDropdown = (props) => {
           (dropdownPopoverShow ? "block " : "hidden ") +
           "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
         }
+        
       >
+                <a
+                href="#pablo"
+                className={
+                  "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                }
+                onClick={editTrainingHandler}
+              >
+                Edit Training
+        </a>
+        <a
+                href="#pablo"
+                className={
+                  "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                }
+                onClick={approvedStudentHandler}
+              >
+                Approved Students List
+        </a>
         {firstButtonTitle && 
                 <a
                 href="#pablo"

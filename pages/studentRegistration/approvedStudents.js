@@ -4,7 +4,7 @@ import {withProtected} from "backend/hook/routeProtector";
 // components
 import Admin from '../../layouts/Admin'
 
-import { getStudentTrainingsByTrainingId , deleteStudentTraining } from '../api/studentRegistration';
+import { getApprovedStudentTrainingsByTrainingId , deleteStudentTraining } from '../api/studentRegistration';
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 import router from "next/router";
@@ -109,7 +109,7 @@ export default withProtected(Application)
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
-  const data = await getStudentTrainingsByTrainingId(id)
+  const data = await getApprovedStudentTrainingsByTrainingId(id)
   let renderBody = true;
   if(data.length < 1){
     renderBody = false;

@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 // components
 
-import TableDropdown from "components/Dropdowns/TableDropdown.js";
+import TableDropdown from "../Dropdowns/TableDropdownTrainings";
 import router from "next/router";
 
-export default function CardTable({values,title,editUrl,deleteFunction,addUrl,renderBody,firstButtonTitle,secondButtonTitle}) {
+export default function CardTable({values,title,editUrl,deleteFunction,addUrl,renderBody,firstButtonTitle,secondButtonTitle,editTrainingUrl,approvedStudentUrl}) {
   const allValues = values
   const headersList = Object.keys(allValues[0])
   const headers = headersList.map((header, index) => {
@@ -111,7 +111,13 @@ export default function CardTable({values,title,editUrl,deleteFunction,addUrl,re
                   ))}
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
 
-                    <TableDropdown id = {ids[index]} deleteFunction = {deleteFunction} editUrl={editUrl} firstButtonTitle = {firstButtonTitle} secondButtonTitle = {secondButtonTitle}/>
+                    <TableDropdown id = {ids[index]} 
+                    deleteFunction = {deleteFunction} 
+                    editUrl={editUrl} 
+                    firstButtonTitle = {firstButtonTitle} 
+                    secondButtonTitle = {secondButtonTitle}
+                    editTrainingUrl = {editTrainingUrl}
+                    approvedStudentUrl = {approvedStudentUrl}/>
                   </td>
                 </tr>
               ))}
