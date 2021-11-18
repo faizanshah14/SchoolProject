@@ -6,8 +6,8 @@ import {getCompanies,deleteCompany} from 'pages/api/compnies';
 import Admin from '../../layouts/Admin'
 
 function Index({companies,renderBody}) {
-    return (<Admin title="Companies">
-        <CardTable title="Companies Info" values={companies.data} renderBody={renderBody} addUrl={'/company/addCompany'} editUrl={'/company/editCompany?id='} deleteFunction={deleteCompany}></CardTable>
+    return (<Admin title="ENTREPRISES">
+        <CardTable title="Informations sur les entreprises" values={companies.data} renderBody={renderBody} addUrl={'/company/addCompany'} editUrl={'/company/editCompany?id='} deleteFunction={deleteCompany}></CardTable>
     </Admin>)
 }
 export default withProtected(Index)

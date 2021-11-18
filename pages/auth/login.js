@@ -82,6 +82,15 @@ function Login({auth}) {
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
+                  {error &&
+                  <div className="relative w-full mb-3">
+                      <label
+                        className="block uppercase text-red-500 text-xs font-bold mb-2"
+                      >
+                        {error}
+                      </label>
+                    </div>
+                  }
                   <div>
                     <label className="inline-flex items-center cursor-pointer">
                       <input

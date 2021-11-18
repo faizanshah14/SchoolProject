@@ -5,6 +5,7 @@ import Select from "react-select";
 import Creatable from "react-select/creatable";
 import SignatureCanvas from "react-signature-canvas";
 
+
 import { InputField } from "../../components/Fields/InputField";
 import { getTrainings , updateTraining } from "../api/trainings";
 import fileUpload from "../../backend/api/fileUpload";
@@ -52,7 +53,7 @@ function Index(props) {
   const [otherToSpecify, setOtherToSpecify] = useState("");
   const [expectedFromTraining, setExpectedFromTraining] = useState("");
   const [accidentsAtWork, setAccidentsAtWork] = useState("");
-  const [gesturesThatSave, setGesturesThatSave] = useState("");
+  const [gesturesThatSave, setGesturesThatSave] = useState('')
   const [riskPreventionAtWork, setRiskPreventionAtWork] = useState("");
   const [howDidYouHeard, setHowDidYouHeard] = useState("");
   const [trainingLocation, setTrainingLocation] = useState("");
@@ -63,26 +64,28 @@ function Index(props) {
   const [coverLetter, setCoverLetter] = useState('');
   const [diploma, setDiploma] = useState('');
   const [pdfUrl, setPDFUrl] = useState('');
+  let sigpad = {}
+
   const fiveOptions = [
     {
       value: "1 - Unsatisfactory",
-      label: "1 - Unsatisfactory",
+      label: "1 - Insatisfaisant",
     },
     {
       value: "2 - Very Unsatisfactory",
-      label: "2 - Very Unsatisfactory",
+      label: "2 - Très insatisfaisant",
     },
     {
       value: "3 - No Opinion",
-      label: "3 - No Opinion",
+      label: "3 - Pas d'avis",
     },
     {
       value: "4 - Satisfactory",
-      label: "4 - Satisfactory",
+      label: "4 - Satisfaisant",
     },
     {
       value: "5 - Very Satisfactory",
-      label: "5 - Very Satisfactory",
+      label: "5 - Très satisfaisant",
     },
   ];
   function identityCardHandler(e) {
@@ -108,6 +111,7 @@ function Index(props) {
   }
   const router = useRouter();
   async function submitHandler(e) {
+
 
     e.preventDefault();
     if (!cb1 || !cb2) {
@@ -155,7 +159,7 @@ function Index(props) {
         otherToSpecify: otherToSpecify,
         expectedFromTraining: expectedFromTraining,
         accidentsAtWork: accidentsAtWork,
-        gesturesThatSave: gesturesThatSave,
+        gesturesThatSave:  sigpad.toDataURL(),
         riskPreventionAtWork: riskPreventionAtWork,
         howDidYouHeard: howDidYouHeard,
         trainingLocation: trainingLocation,
@@ -165,8 +169,18 @@ function Index(props) {
         diploma: diploma,
         applicationStatus: "Pending",
       }
-      const training = props.trainings.data.filter(training => training.id === trainings.value)
-      training.applicants =  training.applicants + 1;
+      const training = props.trainings.data.filter(training => training.id === trainings.value)[0]
+      if(training.applicants){
+        if(typeof training.applicants === 'number'){
+          training.applicants =  training.applicants + 1;
+        }else {
+          training.applicants = parseInt(training.applicants,10 )+1
+        }
+      } else {
+        training.applicants = 1
+      } 
+      const url = sigpad.toDataURL();
+      debugger;
       await updateTraining(training)
       const res= await addStudentTraining(studentRegistrationData);
       if(res){
@@ -206,43 +220,43 @@ function Index(props) {
             <div className="rounded-t bg-white mb-0 px-6 py-6">
               <div className="text-center flex justify-between">
                 <h6 className="text-blueGray-700 text-xl font-bold">
-                  Registration Form
+                Formulaire d'inscription
                 </h6>
                 <button
                   className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                   type="button"
                   onClick={submitHandler}
                 >
-                  Submit
+                  SOUMETTRE
                 </button>
               </div>
             </div>
             <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
               <form>
                 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                  Trainee
+                STAGIAIRE
                 </h6>
                 <div className="flex flex-wrap">
                   <InputField
-                    label="Last Name"
+                    label="NOM DE FAMILLE"
                     name="lastName"
                     type="text"
                     value={lastName}
                     onChange={setLastName}
-                    placeholder="Last Name"
+                    placeholder="NOM DE FAMILLE"
                   />
 
                   <InputField
-                    label="First Name"
+                    label="PRÉNOM"
                     name="firstName"
                     type="text"
                     value={firstName}
                     onChange={setFirstName}
-                    placeholder="First Name"
+                    placeholder="PRÉNOM"
                   />
 
                   <InputField
-                    label="Date Of Birth"
+                    label="DATE DE NAISSANCE"
                     name="dob"
                     type="date"
                     value={dob}
@@ -250,36 +264,36 @@ function Index(props) {
                   />
 
                   <InputField
-                    label="Nationality"
+                    label="NATIONALITÉ"
                     name="nationality"
                     type="text"
                     value={nationality}
                     onChange={setNationality}
-                    placeholder="Nationality"
+                    placeholder="NATIONALITÉ"
                   />
 
                   <InputField
-                    label="Email Address"
+                    label="ADRESSE E-MAIL"
                     name="email"
                     type="email"
                     value={email}
                     onChange={setEmail}
-                    placeholder="Email"
+                    placeholder="ADRESSE E-MAIL"
                   />
 
                   <InputField
-                    label="Phone Number"
+                    label="NUMÉRO DE TÉLÉPHONE"
                     name="phone"
                     type="text"
                     value={phoneNumber}
                     onChange={setPhoneNumber}
-                    placeholder="Phone Number"
+                    placeholder="NUMÉRO DE TÉLÉPHONE"
                   />
                 </div>
 
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
                 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                  Your Personal Information
+                VOS INFORMATIONS PERSONNELLES
                 </h6>
                 <div className="flex flex-wrap">
                   <div className="w-full lg:w-6/12 px-4">
@@ -288,13 +302,13 @@ function Index(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Current Situation
+                        SITUATION ACTUELLE
                       </label>
                       <Creatable
                         options={[
                           {
                             value: "Salaried",
-                            label: "Salaried",
+                            label: "Salarié",
                           },
                           {
                             value: "Job Seeker",
@@ -312,17 +326,17 @@ function Index(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Disabled Employee
+                    EMPLOYÉ HANDICAPÉ
                       </label>
                       <Select
                         options={[
                           {
                             value: "Yes",
-                            label: "Yes",
+                            label: "Oui",
                           },
                           {
                             value: "No",
-                            label: "No",
+                             label: "Non",
                           },
                         ]}
                         onChange={setDisabledEmployees}
@@ -331,25 +345,25 @@ function Index(props) {
                             ? disabledEmployees
                             : {
                                 value: "No",
-                                label: "No",
+                                 label: "Non",
                               }
                         }
                       />
                     </div>
                   </div>
                   <InputField
-                    label="Employee Disablity"
+                    label="INVALIDITÉ DES EMPLOYÉS"
                     name="employeeDisablity"
                     type="text"
                     value={employeeDisablity}
                     onChange={setEmployeeDisablity}
-                    placeholder="Employee Disablity"
+                    placeholder="INVALIDITÉ DES EMPLOYÉS"
                   />
                 </div>
 
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
                 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                  Education
+                ÉDUCATION 
                 </h6>
                 <div className="flex flex-wrap">
                   <div className="w-full lg:w-6/12 px-4">
@@ -358,7 +372,7 @@ function Index(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Level Of Study
+                        NIVEAU D'ÉTUDES
                       </label>
                       <Select
                         options={[
@@ -401,21 +415,21 @@ function Index(props) {
                     </div>
                   </div>
                   <InputField
-                    label="Last Diploma"
+                    label="DERNIER DIPLÔME"
                     name="lastDiploma"
                     type="text"
                     value={lastDiploma}
                     onChange={setLastDiploma}
-                    placeholder="Last Diploma"
+                    placeholder="DERNIER DIPLÔME"
                   />
 
                   <InputField
-                    label="Last Job Held"
+                    label="DERNIER EMPLOI OCCUPÉ"
                     name="lastJobHeld"
                     type="text"
                     value={lastJobHeld}
                     onChange={setLastJobHeld}
-                    placeholder="Last Job Held"
+                    placeholder="DERNIER EMPLOI OCCUPÉ"
                   />
 
                   <div className="w-full lg:w-6/12 px-4">
@@ -424,7 +438,7 @@ function Index(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Training
+                      ENTRAÎNEMENT
                       </label>
                       <Select
                         options={allTrainings}
@@ -434,7 +448,7 @@ function Index(props) {
                     </div>
                   </div>
                   <InputField
-                    label="Choose Date"
+                    label="CHOISISSEZ LA DATE"
                     name="chooseDate"
                     type="date"
                     value={trainingDate}
@@ -445,16 +459,16 @@ function Index(props) {
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
 
                 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                  Your Motivation
+                VOTRE MOTIVATION 
                 </h6>
                 <div className="flex flex-wrap">
                   <InputField
-                    label="What is Your Career Plan"
+                    label="QUEL EST VOTRE PLAN DE CARRIÈRE"
                     name="careerPlan"
                     type="text"
                     value={careerPlan}
                     onChange={setCareerPlan}
-                    placeholder="Career Plan"
+                    placeholder="QUEL EST VOTRE PLAN DE CARRIÈRE"
                   />
 
                   <div className="w-full lg:w-6/12 px-4">
@@ -463,17 +477,17 @@ function Index(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Training Provided By Company ?
+                     FORMATION FOURNIE PAR L'ENTREPRISE ?
                       </label>
                       <Select
                         options={[
                           {
                             value: "Yes",
-                            label: "Yes",
+                            label: "Oui",
                           },
                           {
                             value: "No",
-                            label: "No",
+                             label: "Non",
                           },
                         ]}
                         onChange={setTrainingProvidedByCompany}
@@ -482,7 +496,7 @@ function Index(props) {
                             ? trainingProvidedByCompany
                             : {
                                 value: "No",
-                                label: "No",
+                                 label: "Non",
                               }
                         }
                       />
@@ -494,18 +508,17 @@ function Index(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Useful to strengthen your skills in your current
-                        position ?
+                        UTILE POUR RENFORCER VOS COMPÉTENCES DANS VOTRE POSTE ACTUEL ?
                       </label>
                       <Select
                         options={[
                           {
                             value: "Yes",
-                            label: "Yes",
+                            label: "Oui",
                           },
                           {
                             value: "No",
-                            label: "No",
+                             label: "Non",
                           },
                         ]}
                         onChange={setTrainingHelpCurrentSkills}
@@ -514,7 +527,7 @@ function Index(props) {
                             ? trainingHelpCurrentSkills
                             : {
                                 value: "No",
-                                label: "No",
+                                 label: "Non",
                               }
                         }
                       />
@@ -526,17 +539,17 @@ function Index(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Useful for acquiring new skills ?
+                       UTILE POUR ACQUÉRIR DE NOUVELLES COMPÉTENCES ? 
                       </label>
                       <Select
                         options={[
                           {
                             value: "Yes",
-                            label: "Yes",
+                            label: "Oui",
                           },
                           {
                             value: "No",
-                            label: "No",
+                             label: "Non",
                           },
                         ]}
                         onChange={setUseFullForNewSkills}
@@ -545,7 +558,7 @@ function Index(props) {
                             ? useFullForNewSkills
                             : {
                                 value: "No",
-                                label: "No",
+                                 label: "Non",
                               }
                         }
                       />
@@ -557,17 +570,17 @@ function Index(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Useful for your professional development ?
+                    UTILE POUR VOTRE ÉVOLUTION PROFESSIONNELLE ?
                       </label>
                       <Select
                         options={[
                           {
                             value: "Yes",
-                            label: "Yes",
+                            label: "Oui",
                           },
                           {
                             value: "No",
-                            label: "No",
+                             label: "Non",
                           },
                         ]}
                         onChange={setUseFullForPersonalDevelopment}
@@ -576,33 +589,33 @@ function Index(props) {
                             ? useFullForPersonalDevelopment
                             : {
                                 value: "No",
-                                label: "No",
+                                 label: "Non",
                               }
                         }
                       />
                     </div>
                   </div>
                   <InputField
-                    label="Other To Specify"
+                    label="AUTRE À PRÉCISER"
                     name="otherToSpecify"
                     type="text"
                     value={otherToSpecify}
                     onChange={setOtherToSpecify}
-                    placeholder="Other To Specify"
+                    placeholder="AUTRE À PRÉCISER"
                   />
                   <InputField
-                    label="What Do you expect from this training ?"
+                    label="QU'ATTENDEZ-VOUS DE CETTE FORMATION ?"
                     name="whatToExpect"
                     type="text"
                     value={expectedFromTraining}
                     onChange={setExpectedFromTraining}
-                    placeholder="What Do you expect from this training ?"
+                    placeholder="QU'ATTENDEZ-VOUS DE CETTE FORMATION ?"
                   />
                 </div>
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
 
                 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                  Your Level in relation to lifeguard training at work
+                VOTRE NIVEAU PAR RAPPORT À LA FORMATION DE SAUVETEUR AU TRAVAIL
                 </h6>
                 <div className="flex flex-wrap">
                   <div className="w-full lg:w-6/12 px-4">
@@ -611,7 +624,7 @@ function Index(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Accidents at work
+                       ACCIDENTS DU TRAVAIL
                       </label>
                       <Select
                         options={fiveOptions}
@@ -626,7 +639,7 @@ function Index(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Gestures that save
+                        DES GESTES QUI SAUVENT
                       </label>
                       <Select
                         options={fiveOptions}
@@ -641,7 +654,7 @@ function Index(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Risk prevention at work
+                       PRÉVENTION DES RISQUES AU TRAVAIL
                       </label>
                       <Select
                         options={fiveOptions}
@@ -654,7 +667,7 @@ function Index(props) {
 
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
                 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                  INSCRIPTION
+                UNE INSCRIPTION
                 </h6>
                 <div className="flex flex-wrap">
                   <div className="w-full lg:w-6/12 px-4">
@@ -663,17 +676,17 @@ function Index(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        How did you hear about our school
+                       COMMENT AVEZ-VOUS ENTENDU PARLER DE NOTRE ÉCOLE
                       </label>
                       <Select
                         options={[
                           {
                             value: "Word of mouth",
-                            label: "Word of mouth",
+                            label: "Bouche à oreille",
                           },
                           {
                             value: "Social Network",
-                            label: "Social Network",
+                            label: "Réseau social",
                           },
                           {
                             value: "Forum / Blog",
@@ -681,7 +694,7 @@ function Index(props) {
                           },
                           {
                             value: "Search Engine",
-                            label: "Search Engine",
+                            label: "Moteur de recherche",
                           },
                         ]}
                         onChange={setHowDidYouHeard}
@@ -690,17 +703,17 @@ function Index(props) {
                     </div>
                   </div>
                   <InputField
-                    label="Training location"
+                    label="LIEU DE FORMATION"
                     name="trainingLocation"
                     type="text"
                     value={trainingLocation}
                     onChange={setTrainingLocation}
-                    placeholder="Enter your training location"
+                    placeholder="LIEU DE FORMATION"
                   />
                 </div>
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
                 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                  DOCUMENT TO BE PROVIDED
+                  DOCUMENT A FOURNIR
                 </h6>
                 <div className="flex flex-wrap">
                   <div className="w-full lg:w-6/12 px-4">
@@ -710,7 +723,7 @@ function Index(props) {
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                           htmlFor="grid-password"
                         >
-                          1 - Photocopy of your identity card <i className="fas fa-times float-right"></i>
+                        1 - PHOTOCOPIE DE VOTRE CARTE D'IDENTITÉ <i className="fas fa-times float-right"></i>
                         </label>
                       )}
                       {identityCard && (
@@ -718,7 +731,7 @@ function Index(props) {
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                           htmlFor="grid-password"
                         >
-                          1 - Photocopy of your identity card{" "}
+                         1 - PHOTOCOPIE DE VOTRE CARTE D'IDENTITÉ{" "}
                           <i className="fas fa-check float-right"></i>{" "}
                         </label>
                       )}
@@ -738,7 +751,7 @@ function Index(props) {
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                           htmlFor="grid-password"
                         >
-                          2 - Up-to-date CV  <i className="fas fa-times float-right"></i>
+                         2 - CV À JOUR  <i className="fas fa-times float-right"></i>
                         </label>
                       }
                       {cv &&
@@ -746,7 +759,7 @@ function Index(props) {
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                           htmlFor="grid-password"
                         >
-                          2 - Up-to-date CV  <i className="fas fa-check float-right"></i>
+                         2 - CV À JOUR <i className="fas fa-check float-right"></i>
                         </label>
                       }
                       <input
@@ -765,7 +778,7 @@ function Index(props) {
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                           htmlFor="grid-password"
                         >
-                          3 - Cover letter  <i className="fas fa-times float-right"></i>
+                         3 - LETTRE DE MOTIVATION <i className="fas fa-times float-right"></i>
                         </label>
                       }
                       {coverLetter &&
@@ -773,7 +786,7 @@ function Index(props) {
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                           htmlFor="grid-password"
                         >
-                          3 - Cover letter <i className="fas fa-check float-right"></i>
+                         3 - LETTRE DE MOTIVATION <i className="fas fa-check float-right"></i>
                         </label>
                       }
                       <input
@@ -793,7 +806,7 @@ function Index(props) {
                       htmlFor="grid-password"
                     >
 
-                      4 - Photocopy of the last Diploma  <i className="fas fa-times float-right"></i>
+                      4 - PHOTOCOPIE DU DERNIER DIPLÔME <i className="fas fa-times float-right"></i>
                     </label>
                     }
                     { diploma &&
@@ -802,7 +815,7 @@ function Index(props) {
                       htmlFor="grid-password"
                     >
 
-                      4 - Photocopy of the last Diploma <i className="fas fa-check float-right"></i>
+                      4 - PHOTOCOPIE DU DERNIER DIPLÔME <i className="fas fa-check float-right"></i>
                     </label>
                     }
                       <input
@@ -820,7 +833,7 @@ function Index(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        OUR GENERAL CONDITIONS OF SALE:
+                      NOS CONDITIONS GENERALES DE VENTE :
                       </label>
                       <div className="block">
                         <span className="text-gray-700">SIGNATURE </span>
@@ -834,7 +847,7 @@ function Index(props) {
                               />
                               <span className="ml-2">
                                 {" "}
-                                I agree to enrollment in the SST school
+                                J'accepte de m'inscrire à l'école SST
                               </span>
                             </label>
                           </div>
@@ -847,8 +860,7 @@ function Index(props) {
                               />
                               <span className="ml-2">
                                 {" "}
-                                I have read and accept the general conditions of
-                                sale
+                                J'ai lu et j'accepte les conditions générales de vente
                               </span>
                             </label>
                           </div>
@@ -858,7 +870,7 @@ function Index(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Please sign in the box below with the mouse:
+                       VEUILLEZ VOUS CONNECTER AVEC LA SOURIS DANS LA CASE CI-DESSOUS :
                       </label>
                       <div
                         className="border-2 border-indigo-600"
@@ -870,6 +882,9 @@ function Index(props) {
                             height: "150",
                             margin: "0 auto",
                             "background-color": "#D3D3D3",
+                          }}
+                          ref={(ref) => {
+                            sigpad = ref
                           }}
                         />
                       </div>

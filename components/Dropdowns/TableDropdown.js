@@ -70,7 +70,8 @@ const NotificationDropdown = (props) => {
                 }
                 onClick={editHandler}
               >
-                Edit
+               
+              Éditer
               </a>
         }
         {secondButtonTitle && 
@@ -92,7 +93,8 @@ const NotificationDropdown = (props) => {
                   }
                   onClick={deleteHandler}
                 >
-                  Delete
+                 
+                Effacer
                 </a>
         }
 

@@ -108,7 +108,7 @@ function ViewApplication(props) {
             <div className="rounded-t bg-white mb-0 px-6 py-6">
               <div className="text-center flex justify-between">
                 <h6 className="text-blueGray-700 text-xl font-bold">
-                  Registration Form
+                Formulaire d'inscription  
                 </h6>
                 <button
                   className="bg-green-500 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
@@ -130,16 +130,16 @@ function ViewApplication(props) {
             <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
               <form>
                 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                  Trainee
+                STAGIAIRE
                 </h6>
                 <div className="flex flex-wrap">
                   <InputField
-                    label="Last Name"
+                    label="NOM DE FAMILLE"
                     name="lastName"
                     type="text"
                     value={lastName}
                     onChange={setLastName}
-                    placeholder="Last Name"
+                    placeholder="NOM DE FAMILLE"
                   />
 
                   <InputField
@@ -152,7 +152,7 @@ function ViewApplication(props) {
                   />
 
                   <InputField
-                    label="Date Of Birth"
+                    label="DATE DE NAISSANCE"
                     name="dob"
                     type="date"
                     value={dob}
@@ -160,12 +160,12 @@ function ViewApplication(props) {
                   />
 
                   <InputField
-                    label="Nationality"
+                    label="NATIONALITÉ"
                     name="nationality"
                     type="text"
                     value={nationality}
                     onChange={setNationality}
-                    placeholder="Nationality"
+                    placeholder="NATIONALITÉ"
                   />
 
                   <InputField
@@ -178,18 +178,18 @@ function ViewApplication(props) {
                   />
 
                   <InputField
-                    label="Phone Number"
+                    label="NUMÉRO DE TÉLÉPHONE"
                     name="phone"
                     type="text"
                     value={phoneNumber}
                     onChange={setPhoneNumber}
-                    placeholder="Phone Number"
+                    placeholder="NUMÉRO DE TÉLÉPHONE"
                   />
                 </div>
 
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
                 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                  Your Personal Information
+                VOS INFORMATIONS PERSONNELLES
                 </h6>
                 <div className="flex flex-wrap">
                   <div className="w-full lg:w-6/12 px-4">
@@ -198,13 +198,13 @@ function ViewApplication(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Current Situation
+                        SITUATION ACTUELLE
                       </label>
                       <Creatable
                         options={[
                           {
                             value: "Salaried",
-                            label: "Salaried",
+                            label: "Salarié",
                           },
                           {
                             value: "Job Seeker",
@@ -222,17 +222,17 @@ function ViewApplication(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Disabled Employee
+                       EMPLOYÉ HANDICAPÉ
                       </label>
                       <Select
                         options={[
                           {
                             value: "Yes",
-                            label: "Yes",
+                            label: "Oui",
                           },
                           {
                             value: "No",
-                            label: "No",
+                             label: "Non",
                           },
                         ]}
                         onChange={setDisabledEmployees}
@@ -241,25 +241,25 @@ function ViewApplication(props) {
                             ? disabledEmployees
                             : {
                                 value: "No",
-                                label: "No",
+                                 label: "Non",
                               }
                         }
                       />
                     </div>
                   </div>
                   <InputField
-                    label="Employee Disablity"
+                    label="INVALIDITÉ DES EMPLOYÉS"
                     name="employeeDisablity"
                     type="text"
                     value={employeeDisablity}
                     onChange={setEmployeeDisablity}
-                    placeholder="Employee Disablity"
+                    placeholder="INVALIDITÉ DES EMPLOYÉS"
                   />
                 </div>
 
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
                 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                  Education
+                ÉDUCATION
                 </h6>
                 <div className="flex flex-wrap">
                   <div className="w-full lg:w-6/12 px-4">
@@ -268,7 +268,7 @@ function ViewApplication(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Level Of Study
+                      NIVEAU D'ÉTUDES
                       </label>
                       <Select
                         options={[
@@ -311,21 +311,21 @@ function ViewApplication(props) {
                     </div>
                   </div>
                   <InputField
-                    label="Last Diploma"
+                    label="DERNIER DIPLÔME"
                     name="lastDiploma"
                     type="text"
                     value={lastDiploma}
                     onChange={setLastDiploma}
-                    placeholder="Last Diploma"
+                    placeholder="DERNIER DIPLÔME"
                   />
 
                   <InputField
-                    label="Last Job Held"
+                    label="DERNIER EMPLOI OCCUPÉ"
                     name="lastJobHeld"
                     type="text"
                     value={lastJobHeld}
                     onChange={setLastJobHeld}
-                    placeholder="Last Job Held"
+                    placeholder="DERNIER EMPLOI OCCUPÉ"
                   />
 
                   <div className="w-full lg:w-6/12 px-4">
@@ -334,7 +334,7 @@ function ViewApplication(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Training
+                      ENTRAÎNEMENT
                       </label>
                       <Select
                         options={allTrainings}
@@ -344,7 +344,7 @@ function ViewApplication(props) {
                     </div>
                   </div>
                   <InputField
-                    label="Choose Date"
+                    label="CHOISISSEZ LA DATE"
                     name="chooseDate"
                     type="date"
                     value={trainingDate}
@@ -355,16 +355,16 @@ function ViewApplication(props) {
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
 
                 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                  Your Motivation
+                VOTRE MOTIVATION
                 </h6>
                 <div className="flex flex-wrap">
                   <InputField
-                    label="What is Your Career Plan"
+                    label="QUEL EST VOTRE PLAN DE CARRIÈRE"
                     name="careerPlan"
                     type="text"
                     value={careerPlan}
                     onChange={setCareerPlan}
-                    placeholder="Career Plan"
+                    placeholder="QUEL EST VOTRE PLAN DE CARRIÈRE"
                   />
 
                   <div className="w-full lg:w-6/12 px-4">
@@ -373,17 +373,17 @@ function ViewApplication(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Training Provided By Company ?
+                    FORMATION FOURNIE PAR L'ENTREPRISE ?
                       </label>
                       <Select
                         options={[
                           {
                             value: "Yes",
-                            label: "Yes",
+                            label: "Oui",
                           },
                           {
                             value: "No",
-                            label: "No",
+                             label: "Non",
                           },
                         ]}
                         onChange={setTrainingProvidedByCompany}
@@ -392,7 +392,7 @@ function ViewApplication(props) {
                             ? trainingProvidedByCompany
                             : {
                                 value: "No",
-                                label: "No",
+                                 label: "Non",
                               }
                         }
                       />
@@ -404,18 +404,17 @@ function ViewApplication(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Useful to strengthen your skills in your current
-                        position ?
+                        UTILE POUR RENFORCER VOS COMPÉTENCES DANS VOTRE POSTE ACTUEL ?
                       </label>
                       <Select
                         options={[
                           {
                             value: "Yes",
-                            label: "Yes",
+                            label: "Oui",
                           },
                           {
                             value: "No",
-                            label: "No",
+                             label: "Non",
                           },
                         ]}
                         onChange={setTrainingHelpCurrentSkills}
@@ -424,7 +423,7 @@ function ViewApplication(props) {
                             ? trainingHelpCurrentSkills
                             : {
                                 value: "No",
-                                label: "No",
+                                 label: "Non",
                               }
                         }
                       />
@@ -436,17 +435,17 @@ function ViewApplication(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Useful for acquiring new skills ?
+                      UTILE POUR ACQUÉRIR DE NOUVELLES COMPÉTENCES ?
                       </label>
                       <Select
                         options={[
                           {
                             value: "Yes",
-                            label: "Yes",
+                            label: "Oui",
                           },
                           {
                             value: "No",
-                            label: "No",
+                             label: "Non",
                           },
                         ]}
                         onChange={setUseFullForNewSkills}
@@ -455,7 +454,7 @@ function ViewApplication(props) {
                             ? useFullForNewSkills
                             : {
                                 value: "No",
-                                label: "No",
+                                 label: "Non",
                               }
                         }
                       />
@@ -467,17 +466,17 @@ function ViewApplication(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Useful for your professional development ?
+                      UTILE POUR VOTRE ÉVOLUTION PROFESSIONNELLE ?
                       </label>
                       <Select
                         options={[
                           {
                             value: "Yes",
-                            label: "Yes",
+                            label: "Oui",
                           },
                           {
                             value: "No",
-                            label: "No",
+                             label: "Non",
                           },
                         ]}
                         onChange={setUseFullForPersonalDevelopment}
@@ -486,33 +485,33 @@ function ViewApplication(props) {
                             ? useFullForPersonalDevelopment
                             : {
                                 value: "No",
-                                label: "No",
+                                 label: "Non",
                               }
                         }
                       />
                     </div>
                   </div>
                   <InputField
-                    label="Other To Specify"
+                    label="AUTRE À PRÉCISER"
                     name="otherToSpecify"
                     type="text"
                     value={otherToSpecify}
                     onChange={setOtherToSpecify}
-                    placeholder="Other To Specify"
+                    placeholder="AUTRE À PRÉCISER"
                   />
                   <InputField
-                    label="What Do you expect from this training ?"
+                    label="QU'ATTENDEZ-VOUS DE CETTE FORMATION ?"
                     name="whatToExpect"
                     type="text"
                     value={expectedFromTraining}
                     onChange={setExpectedFromTraining}
-                    placeholder="What Do you expect from this training ?"
+                    placeholder="QU'ATTENDEZ-VOUS DE CETTE FORMATION ?"
                   />
                 </div>
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
 
                 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                  Your Level in relation to lifeguard training at work
+                VOTRE NIVEAU PAR RAPPORT À LA FORMATION DE SAUVETEUR AU TRAVAIL
                 </h6>
                 <div className="flex flex-wrap">
                   <div className="w-full lg:w-6/12 px-4">
@@ -521,7 +520,7 @@ function ViewApplication(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Accidents at work
+                       ACCIDENTS DU TRAVAIL
                       </label>
                       <Select
                         options={fiveOptions}
@@ -536,7 +535,7 @@ function ViewApplication(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Gestures that save
+                       DES GESTES QUI SAUVENT
                       </label>
                       <Select
                         options={fiveOptions}
@@ -551,7 +550,7 @@ function ViewApplication(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Risk prevention at work
+                       PRÉVENTION DES RISQUES AU TRAVAIL
                       </label>
                       <Select
                         options={fiveOptions}
@@ -564,7 +563,7 @@ function ViewApplication(props) {
 
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
                 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                  INSCRIPTION
+                UNE INSCRIPTION
                 </h6>
                 <div className="flex flex-wrap">
                   <div className="w-full lg:w-6/12 px-4">
@@ -573,17 +572,18 @@ function ViewApplication(props) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        How did you hear about our school
+                        COMMENT AVEZ-VOUS ENTENDU PARLER DE NOTRE ÉCOLE
+
                       </label>
                       <Select
                         options={[
                           {
                             value: "Word of mouth",
-                            label: "Word of mouth",
+                            label: "Bouche à oreille",
                           },
                           {
                             value: "Social Network",
-                            label: "Social Network",
+                            label: "Réseau social",
                           },
                           {
                             value: "Forum / Blog",
@@ -591,7 +591,7 @@ function ViewApplication(props) {
                           },
                           {
                             value: "Search Engine",
-                            label: "Search Engine",
+                            label: "Moteur de recherche",
                           },
                         ]}
                         onChange={setHowDidYouHeard}
@@ -600,17 +600,17 @@ function ViewApplication(props) {
                     </div>
                   </div>
                   <InputField
-                    label="Training location"
+                    label="LIEU DE FORMATION"
                     name="trainingLocation"
                     type="text"
                     value={trainingLocation}
                     onChange={setTrainingLocation}
-                    placeholder="Enter your training location"
+                    placeholder="LIEU DE FORMATION"
                   />
                 </div>
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
                 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                  DOCUMENT TO BE PROVIDED
+                 DOCUMENT A FOURNIR
                 </h6>
                 <div className="flex flex-wrap">
                   <div className="w-full lg:w-6/12 px-4">
@@ -619,7 +619,7 @@ function ViewApplication(props) {
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                           htmlFor="grid-password"
                         >
-                          1 - Photocopy of your identity card{" "}
+                       1 - PHOTOCOPIE DE VOTRE CARTE D'IDENTITÉ{" "}
                           <i className="fas fa-check float-right"></i>{" "}
                         </label>
                         <a className='underline text-blue-600 hover:text-blue-800 visited:text-purple-600' href={identityCard ? identityCard : '#pablo'}>Download identity card</a>
@@ -631,7 +631,7 @@ function ViewApplication(props) {
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                           htmlFor="grid-password"
                         >
-                          2 - Up-to-date CV  <i className="fas fa-check float-right"></i>
+                         2 - CV À JOUR  <i className="fas fa-check float-right"></i>
                         </label>
                         <a className='underline text-blue-600 hover:text-blue-800 visited:text-purple-600' href={cv ? cv : '#pablo' }>Download CV</a>
                     </div>
@@ -642,7 +642,7 @@ function ViewApplication(props) {
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                           htmlFor="grid-password"
                         >
-                          3 - Cover letter <i className="fas fa-check float-right"></i>
+                         3 - LETTRE DE MOTIVATION <i className="fas fa-check float-right"></i>
                         </label>
                         <a className='underline text-blue-600 hover:text-blue-800 visited:text-purple-600' href={coverLetter ? coverLetter : '#pablo'}>Download Cover Letter</a>
                     </div>
@@ -677,6 +677,17 @@ function ViewApplication(props) {
                             height: "150",
                             margin: "0 auto",
                             "background-color": "#D3D3D3",
+                          }}
+                          ref={(ref) => {
+                            if(ref){
+                              ref.off();
+                              ref.fromDataURL(gesturesThatSave,{
+                                width: "350",
+                                height: "150",
+                                margin: "0 auto",
+                                "background-color": "#D3D3D3",
+                              })
+                            }
                           }}
                         />
                       </div>

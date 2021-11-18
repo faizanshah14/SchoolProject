@@ -50,7 +50,7 @@ export function AuthProvider(props) {
 				password
 			);
 			if (error) {
-				setError({ [pathname]: error });
+				setError(error);
 				return;
 			}
 			setUser(user ?? null);

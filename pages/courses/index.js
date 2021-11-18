@@ -7,8 +7,8 @@ import Admin from '../../layouts/Admin'
 
 function Index({courses,renderBody}) {
     return (
-    <Admin title="Courses">
-        <CardTable title="Courses Info" values={courses.data} renderBody={renderBody} addUrl={'/courses/addCourse'} editUrl={'/courses/editCourse?id='} deleteFunction={deleteCourse}/>
+    <Admin title="Cours">
+        <CardTable title="Informations sur les cours" values={courses.data} renderBody={renderBody} addUrl={'/courses/addCourse'} editUrl={'/courses/editCourse?id='} deleteFunction={deleteCourse}/>
     </Admin>
     )
 }

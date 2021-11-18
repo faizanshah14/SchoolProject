@@ -75,7 +75,7 @@ const NotificationDropdown = (props) => {
                 }
                 onClick={approvedStudentHandler}
               >
-                Approved Students List
+                Liste des étudiants approuvés
         </a>
         {firstButtonTitle && 
                 <a
@@ -96,7 +96,8 @@ const NotificationDropdown = (props) => {
                 }
                 onClick={editHandler}
               >
-                Edit
+               
+              Éditer
               </a>
         }
         {secondButtonTitle && 
@@ -118,7 +119,8 @@ const NotificationDropdown = (props) => {
                   }
                   onClick={deleteHandler}
                 >
-                  Delete
+                 
+                Effacer
                 </a>
         }
 
@@ -128,3 +130,4 @@ const NotificationDropdown = (props) => {
 };
 
 export default NotificationDropdown;
+	
