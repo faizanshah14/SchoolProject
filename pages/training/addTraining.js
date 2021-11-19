@@ -47,7 +47,7 @@ function AddTraining(props) {
     <form>
         <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
-            <h6 className="text-blueGray-700 text-xl font-bold">Training Information</h6>
+            <h6 className="text-blueGray-700 text-xl font-bold">Informations sur la formation</h6>
             <button
               className="bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
               type="button"
@@ -68,7 +68,7 @@ function AddTraining(props) {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Training Title
+                    Titre de la formation
                   </label>
                   <input
                     type="text"
@@ -83,7 +83,7 @@ function AddTraining(props) {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Status
+                    STATUT
                   </label>
                   <input
                     type="text"
@@ -98,7 +98,7 @@ function AddTraining(props) {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Start Date
+                    Date de début
                   </label>
                   <input
                     type="date"
@@ -113,7 +113,7 @@ function AddTraining(props) {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    End Date
+                    Date de fin
                   </label>
                   <input
                     type="date"
@@ -128,13 +128,13 @@ function AddTraining(props) {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Select Course
+                    Sélectionnez le cours
                   </label>
                 <MultiSelect
                   options={options}
                   value={selected}
                   onChange={setSelected}
-                  labelledBy="Select Course"
+                  labelledBy="Sélectionnez le cours"
                 />
                 </div>
               </div>
